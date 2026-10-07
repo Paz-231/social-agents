@@ -19,7 +19,8 @@
     "worker": "tsx src/worker/index.ts",
     "pretest": "node scripts/ensure-deps.mjs",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:social-os": "vitest run tests/weekly-content.test.ts tests/orchestrator.test.ts"
   },
   "keywords": [
     "creatoros",
