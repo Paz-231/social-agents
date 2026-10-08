@@ -16,6 +16,9 @@ Use this skill when asked to plan, create, review, or publish social media conte
 ## Brand setup
 Read brand-specific Business DNA or BRAND.md, site, target audience, language, products, claims and goals. Keep brand configuration, channel IDs, assets, history and approval state separate. If unavailable, ask for missing essentials rather than guessing.
 
+## Creative strategy and scripts
+Before drafting, read references/avb-creative-strategy.md. Apply the five AVB-derived layers: awareness and objective selection, customer psychology, one of 16 narrative frameworks, original hooks inspired by the hook categories, and appropriate UGC format. Require factual proof and platform-native creative QA. Do not treat source examples as verified facts or copy them into advertisements.
+
 ## Weekly workflow
 1. Review existing posts, factual sources, assets and performance data.
 2. Plan a varied seven-day mix of topics, formats, hooks, CTAs and objectives.
