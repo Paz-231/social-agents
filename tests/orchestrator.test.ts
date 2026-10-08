@@ -17,10 +17,12 @@ const provider: SocialPublishingProvider = {
 
 function week(): PlannedPost[] {
   const pillars = ['problem','education','product','insight','social-proof','behind-scenes','founder'] as const;
+  const topics = ['paperwork backlog','volume calculation','checkout automation','regional regulations','guest interviews','beach workshop','founder journey'];
+  const angles = ['reduce admin','match equipment','avoid errors','explain obligations','show evidence','teach repair','explain mission'];
   return pillars.map((pillar, i) => ({
     day: i + 1, pillar, format: i < 2 ? 'reel' : 'image', objective: 'awareness',
-    platforms: ['instagram'], requiresApproval: true, topic: `unique topic ${i}`,
-    angle: `angle ${i}`, hook: `hook ${i}`, cta: `cta ${i}`,
+    platforms: ['instagram'], requiresApproval: true, topic: topics[i]!,
+    angle: angles[i]!, hook: topics[i]!, cta: `Learn about ${pillar}`,
   }));
 }
 
