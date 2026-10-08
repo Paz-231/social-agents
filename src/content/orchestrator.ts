@@ -43,7 +43,9 @@ export class WeeklyContentOrchestrator {
       scheduleAt,
       timezone: 'Europe/Vienna',
     });
-    if (!published.id || published.status !== 'scheduled') throw new Error('Provider did not confirm scheduling');
+    if (!published.id) throw new Error('Provider did not return a post ID');
+    const confirmed = await this.provider.getPost(published.id);
+    if (confirmed.status.toLowerCase() !== 'scheduled' && confirmed.status.toLowerCase() !== 'queue') throw new Error('Provider did not verify scheduled state');
     item.status = 'scheduled';
     item.scheduledAt = scheduleAt;
     item.providerPostId = published.id;
