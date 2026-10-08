@@ -30,7 +30,7 @@ describe('orchestrator', () => {
     const o = new WeeklyContentOrchestrator(root, provider);
     const items = await o.stageWeek(week());
     expect(items.every((x) => x.status === 'pending')).toBe(true);
-    await expect(o.scheduleApproved(items[0].id, { instagram: 'ig1' }, '2030-01-01T10:00:00Z', { instagram: 'copy' })).rejects.toThrow(/approval/i);
+    await expect(o.scheduleApproved(items[0]!.id, { instagram: 'ig1' }, '2030-01-01T10:00:00Z', { instagram: 'copy' })).rejects.toThrow(/approval/i);
   });
 
   it('schedules only an approved item', async () => {
@@ -39,15 +39,15 @@ describe('orchestrator', () => {
     const items = await o.stageWeek(week());
     const path = join(root, 'social-agents', 'approval-queue.json');
     const queue = await loadApprovalQueue(path);
-    queue[0].status = 'approved';
+    queue[0]!.status = 'approved';
     await saveApprovalQueue(path, queue);
-    const result = await o.scheduleApproved(items[0].id, { instagram: 'ig1' }, '2030-01-01T10:00:00Z', { instagram: 'copy' });
+    const result = await o.scheduleApproved(items[0]!.id, { instagram: 'ig1' }, '2030-01-01T10:00:00Z', { instagram: 'copy' });
     expect(result.status).toBe('scheduled');
   });
 
   it('derives performance learnings', () => {
     const rows = deriveLearnings([{ postId:'1', pillar:'education', format:'carousel', saves:10, shares:3 }]);
-    expect(rows[0].key).toBe('education:carousel');
-    expect(rows[0].score).toBeGreaterThan(0);
+    expect(rows[0]!.key).toBe('education:carousel');
+    expect(rows[0]!.score).toBeGreaterThan(0);
   });
 });
