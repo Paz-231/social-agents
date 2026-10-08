@@ -68,8 +68,13 @@ export class PostizProvider implements SocialPublishingProvider {
         settings: variant.settings ?? {},
       })),
     };
-    const raw = await this.request<Record<string, unknown>>('POST', '/posts', body);
-    return { id: String(raw.id ?? raw.postId ?? ''), status: request.draft ? 'draft' : 'scheduled', raw };
+    const raw = await this.request<unknown>('POST', '/posts', body);
+    const item = Array.isArray(raw) ? raw[0] : raw;
+    if (!item || typeof item !== 'object') throw new Error('Postiz did not return a post confirmation');
+    const result = item as Record<string, unknown>;
+    const id = result.id ?? result.postId;
+    if (typeof id !== 'string' || !id.trim()) throw new Error('Postiz did not return a valid post ID');
+    return { id, status: 'submitted', raw };
   }
 
   async getPost(id: string): Promise<PublishedPost> {
