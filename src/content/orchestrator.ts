@@ -35,20 +35,21 @@ export class WeeklyContentOrchestrator {
       return { platform, accountId, content };
     });
 
+    if (!Number.isFinite(Date.parse(scheduleAt)) || Date.parse(scheduleAt) <= Date.now()) throw new Error('Schedule must be a valid future timestamp');
+    if (item.variants && JSON.stringify(item.variants) !== JSON.stringify(variants)) throw new Error('Approved content differs from submitted variants');
     const published = await this.provider.createPost({
       variants: platformVariants,
       scheduleAt,
       timezone: 'Europe/Vienna',
     });
+    if (!published.id || published.status !== 'scheduled') throw new Error('Provider did not confirm scheduling');
     item.status = 'scheduled';
     item.scheduledAt = scheduleAt;
     item.providerPostId = published.id;
     item.variants = variants;
     await saveApprovalQueue(this.queuePath(), queue);
 
-    const history = await loadHistory(this.historyPath());
-    history.push({ ...item.post, publishedAt: scheduleAt });
-    await saveHistory(this.historyPath(), history);
+    // Scheduling is not publication. Update published history only after provider confirmation.
     return item;
   }
 }
