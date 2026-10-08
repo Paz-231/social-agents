@@ -27,7 +27,14 @@ export class WeeklyContentOrchestrator {
     if (!item) throw new Error('Approval item not found');
     if (item.status !== 'approved') throw new Error('Human approval required before scheduling');
 
-    if (!item.approvedPayload || JSON.stringify(item.approvedPayload) !== JSON.stringify({ variants, accountMap, scheduleAt })) throw new Error('Exact content, account mapping and time require approval');
+    const approved = item.approvedPayload;
+    if (!approved || approved.scheduleAt !== scheduleAt ||
+      Object.keys(approved.variants).sort().join('|') !== Object.keys(variants).sort().join('|') ||
+      Object.keys(approved.accountMap).sort().join('|') !== Object.keys(accountMap).sort().join('|') ||
+      Object.keys(variants).some((key) => approved.variants[key] !== variants[key]) ||
+      Object.keys(accountMap).some((key) => approved.accountMap[key] !== accountMap[key])) {
+      throw new Error('Exact content, account mapping and time require approval');
+    }
     const platformVariants = item.post.platforms.map((platform) => {
       const accountId = accountMap[platform];
       if (!accountId) throw new Error(`No Postiz account mapping for ${platform}`);
