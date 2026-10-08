@@ -12,6 +12,7 @@ export interface ApprovalItem {
   scheduledAt?: string;
   providerPostId?: string;
   variants?: Record<string, string>;
+  approvedPayload?: { variants: Record<string, string>; accountMap: Record<string, string>; scheduleAt: string };
 }
 
 async function readJson<T>(path: string, fallback: T): Promise<T> {
@@ -28,11 +29,16 @@ export const saveHistory = (path: string, value: ContentFingerprint[]) => writeJ
 export const loadApprovalQueue = (path: string) => readJson<ApprovalItem[]>(path, []);
 export const saveApprovalQueue = (path: string, value: ApprovalItem[]) => writeJson(path, value);
 
-export async function approve(queuePath: string, id: string): Promise<ApprovalItem> {
+export async function approve(queuePath: string, id: string, payload: { variants: Record<string, string>; accountMap: Record<string, string>; scheduleAt: string }): Promise<ApprovalItem> {
   const queue = await loadApprovalQueue(queuePath);
   const item = queue.find((x) => x.id === id);
   if (!item) throw new Error('Approval item not found');
   if (item.status !== 'pending') throw new Error('Only pending items can be approved');
+  if (!Number.isFinite(Date.parse(payload.scheduleAt)) || Date.parse(payload.scheduleAt) <= Date.now()) throw new Error('Approval requires a future schedule');
+  for (const platform of item.post.platforms) {
+    if (!payload.variants[platform]?.trim() || !payload.accountMap[platform]?.trim()) throw new Error(`Missing approved copy or account for ${platform}`);
+  }
+  item.approvedPayload = structuredClone(payload);
   item.status = 'approved';
   await saveApprovalQueue(queuePath, queue);
   return item;
