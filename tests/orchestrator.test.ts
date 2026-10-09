@@ -45,6 +45,31 @@ describe('orchestrator', () => {
     expect(result.status).toBe('scheduled');
   });
 
+  it('preserves staged weeks and rejects duplicates', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'social-agents-'));
+    const o = new WeeklyContentOrchestrator(root, provider);
+    await o.stageWeek(week());
+    await expect(o.stageWeek(week())).rejects.toThrow(/Duplicate/);
+    const { loadApprovalQueue } = await import('../src/content/store.js');
+    expect(await loadApprovalQueue(join(root, 'social-agents', 'approval-queue.json'))).toHaveLength(7);
+  });
+
+  it('claims one submission and never retries an ambiguous POST', async () => {
+    const { vi } = await import('vitest');
+    const { loadApprovalQueue } = await import('../src/content/store.js');
+    const root = await mkdtemp(join(tmpdir(), 'social-agents-'));
+    const createPost = vi.fn().mockRejectedValue(new Error('timeout'));
+    const o = new WeeklyContentOrchestrator(root, { ...provider, createPost });
+    const [item] = await o.stageWeek(week());
+    const path = join(root, 'social-agents', 'approval-queue.json');
+    const payload = { accountMap: { instagram: 'ig1' }, scheduleAt: '2030-01-01T10:00:00Z', variants: { instagram: 'copy' } };
+    await approve(path, item!.id, payload);
+    await Promise.allSettled([o.scheduleApproved(item!.id, payload.accountMap, payload.scheduleAt, payload.variants), o.scheduleApproved(item!.id, payload.accountMap, payload.scheduleAt, payload.variants)]);
+    expect(createPost).toHaveBeenCalledTimes(1);
+    expect((await loadApprovalQueue(path))[0]!.status).toBe('submitting');
+    await expect(o.scheduleApproved(item!.id, payload.accountMap, payload.scheduleAt, payload.variants)).rejects.toThrow(/approval/i);
+  });
+
   it('derives performance learnings', () => {
     const rows = deriveLearnings([{ postId:'1', pillar:'education', format:'carousel', saves:10, shares:3 }]);
     expect(rows[0]!.key).toBe('education:carousel');

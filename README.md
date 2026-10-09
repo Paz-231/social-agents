@@ -171,3 +171,7 @@ Layout: `src/` (harness, client, agent, tools), `templates/` (skill playbooks in
 Security notes: your API key is never written into any repo file. It is read from the `CREATOROS_API_KEY` env var, then `~/.social-agents/credentials.json` (mode 0600), then `~/.creatoros/config.json` (written by `npx @creatoros/cli init`), and appears in logs only as `cos_live_...last4`. Keys from before CreatorOS had its own API (`sk_...`) no longer work: get a new one at creatoros.ca under Settings, API keys.
 
 MIT. PRs welcome.
+
+## Replit review deployment
+
+See [Replit deployment preparation](docs/replit-deployment.md) for PostgreSQL storage, secrets, the isolated queue-monitor worker, health probes, PASARA-SURF drafts and verification gates. The Replit entrypoint is review-only; the legacy dashboard/worker are not exposed.

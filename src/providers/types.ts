@@ -25,5 +25,5 @@ export interface SocialPublishingProvider {
   readonly name: string;
   listAccounts(): Promise<Array<{ id: string; platform: string; name?: string }>>;
   createPost(request: PublishRequest): Promise<PublishedPost>;
-  getPost(id: string): Promise<PublishedPost>;
+  getPost(id: string, scheduleAt?: string): Promise<PublishedPost>;
 }

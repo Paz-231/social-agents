@@ -3,10 +3,24 @@ on:
   pull_request:
   push:
     branches:
-      - agent/postiz-weekly-content-loop
+      - 'agent/**'
 jobs:
   verify:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: social_os_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test -d social_os_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql://test:test@localhost:5432/social_os_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,3 +31,4 @@ jobs:
       - run: npm run typecheck
       - run: npm run test:social-os
       - run: npm test
+      - run: npm audit --omit=dev --audit-level=high

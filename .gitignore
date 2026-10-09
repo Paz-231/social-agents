@@ -23,3 +23,8 @@ dist/
 logs/
 .env
 .DS_Store
+
+.env.*
+!.env.example
+*.dump
+*.backup
