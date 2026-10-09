@@ -22,7 +22,8 @@
     "typecheck": "tsc --noEmit",
     "test:social-os": "vitest run tests/weekly-content.test.ts tests/orchestrator.test.ts",
     "replit:start": "tsx src/deployment/index.ts",
-    "replit:migrate": "tsx src/deployment/manage.ts migrate",
+    "replit:migrate": "tsx src/deployment/migrateBrands.ts",
+    "replit:migrate-legacy": "tsx src/deployment/manage.ts migrate",
     "replit:stage-pilot": "tsx src/deployment/manage.ts stage-pilot",
     "test:deployment": "vitest run tests/deployment.test.ts tests/postgres.test.ts tests/postiz.test.ts"
   },
