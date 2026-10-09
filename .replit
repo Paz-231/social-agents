@@ -1,0 +1,15 @@
+entrypoint = "src/deployment/index.ts"
+modules = ["nodejs-22"]
+run = ["npm", "run", "replit:start"]
+
+[deployment]
+build = ["sh", "-c", "npm ci && npm run typecheck"]
+run = ["npm", "run", "replit:start"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[env]
+PORT = "3000"
+SOCIAL_OS_ENABLE_PUBLISHING = "false"

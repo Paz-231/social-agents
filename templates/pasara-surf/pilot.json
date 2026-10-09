@@ -1,0 +1,111 @@
+{
+  "workspace": "pasara-surf",
+  "status": "unverified-draft",
+  "posts": [
+    {
+      "day": 1,
+      "pillar": "problem",
+      "format": "reel",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Ausrüstung vor dem Surfen",
+      "angle": "Checkliste prüfen",
+      "hook": "Was gehört zum Ausrüstungscheck?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    },
+    {
+      "day": 2,
+      "pillar": "education",
+      "format": "reel",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Verhalten im Wasser",
+      "angle": "Regeln fachlich prüfen",
+      "hook": "Welche Regeln gelten am gewählten Spot?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    },
+    {
+      "day": 3,
+      "pillar": "product",
+      "format": "image",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Angebot kennenlernen",
+      "angle": "Leistungsumfang bestätigen",
+      "hook": "Was bietet PASARA-SURF tatsächlich an?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    },
+    {
+      "day": 4,
+      "pillar": "insight",
+      "format": "image",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Bedingungen einschätzen",
+      "angle": "Freigabe durch qualifizierte Person",
+      "hook": "Welche Bedingungen passen zu deinem Können?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    },
+    {
+      "day": 5,
+      "pillar": "social-proof",
+      "format": "image",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Erfahrungen von Gästen",
+      "angle": "Originalzitat und Einwilligung einholen",
+      "hook": "Welche Erfahrung dürfen wir teilen?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    },
+    {
+      "day": 6,
+      "pillar": "behind-scenes",
+      "format": "image",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Einblick in den Alltag",
+      "angle": "Reales Material vor Ort bestätigen",
+      "hook": "Was passiert hinter den Kulissen?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    },
+    {
+      "day": 7,
+      "pillar": "founder",
+      "format": "image",
+      "objective": "awareness",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "requiresApproval": true,
+      "topic": "Menschen hinter der Marke",
+      "angle": "Biografie und Bildrechte bestätigen",
+      "hook": "Wer steht hinter PASARA-SURF?",
+      "cta": "Entwurf – fachliche und redaktionelle Freigabe erforderlich"
+    }
+  ]
+}

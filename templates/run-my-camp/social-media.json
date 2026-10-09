@@ -1,0 +1,15 @@
+{
+  "brand": "Run My Camp",
+  "timezone": "Europe/Vienna",
+  "provider": "postiz",
+  "platforms": ["instagram", "tiktok", "facebook"],
+  "approvalRequired": true,
+  "autoPublish": false,
+  "weeklyPosts": 7,
+  "duplicateThreshold": 0.58,
+  "accountMap": {
+    "instagram": "",
+    "tiktok": "",
+    "facebook": ""
+  }
+}
